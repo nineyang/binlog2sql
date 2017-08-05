@@ -126,8 +126,6 @@ class Binlog
     {
         $fillFile = Util::getFile(__DIR__ . '/data/file.sql');
         file_put_contents($fillFile, "");
-        # todo 这里记得把binlog_basename去掉
-        $this->_binlog_basename = '/Users/sf/docker/mysql/data';
         exec("mysqlbinlog -v --database='" . Conf::__DATABASE__ . "' $this->_binlog_basename/$this->_binlog_file | grep -E -i '###|UPDATE|INSERT|DELETE' >> $fillFile");
         return $this;
     }
