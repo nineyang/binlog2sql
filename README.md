@@ -11,6 +11,15 @@ composer require nine/binlog2sql
 clone 下来即可。
 
 ## 使用
+首先在`Conf.php`中配置自己的`MySql`信息:
+```
+const __DATABASE__ = 'test';
+const __TABLE__ = 'student';
+const __USER__ = 'root';
+const __PASSWORD__ = 123456;
+const __HOST__ = '127.0.0.1';
+const __PORT__ = 3309;
+```
 ```php
 $binlog = new \Binlog2sql\Binlog();
 $binlog->start();
