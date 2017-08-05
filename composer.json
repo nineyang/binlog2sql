@@ -1,0 +1,10 @@
+{
+    "name": "sf/binlog2sql",
+    "authors": [
+        {
+            "name": "nine",
+            "email": "nine@segmentfault.com"
+        }
+    ],
+    "require": {}
+}
