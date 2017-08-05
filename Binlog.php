@@ -96,8 +96,12 @@ class Binlog
         # get binlog info
         $binlogInfo = $this->select("show master status");
         ($binlogInfo && $binlogInfo = array_pop($binlogInfo)) || Util::dd('尚未开启binlog');
-        $this->_start_position = $startPosition ?: $binlogInfo['Position'];
+//        $this->_start_position = $startPosition ?: $binlogInfo['Position'];
+        $this->_start_position = $startPosition ?: 0;
         $this->_binlog_file = $binlogFile ?: $binlogInfo['File'];
+
+        $this->_start_time = $startDate ? date('Y-m-d H:i:s', $startDate) : $startDate;
+        $this->_stop_time = $endTime ? date('Y-m-d H:i:s', $endTime) : $endTime;
 
         # get binlog_format
         $this->_type = array_pop($this->select("show variables like 'binlog_format'"))['Value'];
@@ -125,8 +129,14 @@ class Binlog
     protected function selectFromBinLog()
     {
         $fillFile = Util::getFile(__DIR__ . '/data/file.sql');
+        exec("mysqlbinlog -v --database=" . Conf::__DATABASE__
+            . ($this->_start_position ? " --start-position=$this->_start_position " : '')
+            . ($this->_stop_position ? " --stop-position=$this->_stop_position " : '')
+            . ($this->_start_time ? " --start-datetime=$this->_start_time " : '')
+            . ($this->_stop_time ? " --stop-datetime=$this->_stop_time " : '')
+            . " $this->_binlog_basename/$this->_binlog_file" .
+            " | grep -E -i '###|UPDATE|INSERT|DELETE' >> $fillFile");
         file_put_contents($fillFile, "");
-        exec("mysqlbinlog -v --database='" . Conf::__DATABASE__ . "' $this->_binlog_basename/$this->_binlog_file | grep -E -i '###|UPDATE|INSERT|DELETE' >> $fillFile");
         return $this;
     }
 
