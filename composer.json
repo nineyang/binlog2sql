@@ -1,5 +1,6 @@
 {
-    "name": "nine/binlog2sql",
+    "name": "nineyang/binlog2sql",
+    "description": "A tool to change binlog to sql",
     "authors": [
         {
             "name": "nine",
