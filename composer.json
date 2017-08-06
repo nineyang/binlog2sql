@@ -1,11 +1,12 @@
 {
-    "name": "nineyang/binlog2sql",
-    "description": "A tool to change binlog to sql",
-    "authors": [
-        {
-            "name": "nine",
-            "email": "nine@segmentfault.com"
-        }
-    ],
-    "require": {}
+  "name": "nineyang/binlog2sql",
+  "description": "A tool to change binlog to sql",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "nine",
+      "email": "nine@segmentfault.com"
+    }
+  ],
+  "require": {}
 }
